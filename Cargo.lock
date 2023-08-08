@@ -4255,6 +4255,7 @@ dependencies = [
 name = "kusama-runtime"
 version = "0.9.43"
 dependencies = [
+ "binary-merkle-tree",
  "bitvec",
  "frame-benchmarking",
  "frame-election-provider-support",
@@ -4273,6 +4274,8 @@ dependencies = [
  "pallet-babe",
  "pallet-bags-list",
  "pallet-balances",
+ "pallet-beefy",
+ "pallet-beefy-mmr",
  "pallet-bounties",
  "pallet-child-bounties",
  "pallet-collective",
@@ -4288,6 +4291,7 @@ dependencies = [
  "pallet-indices",
  "pallet-membership",
  "pallet-message-queue",
+ "pallet-mmr",
  "pallet-multisig",
  "pallet-nis",
  "pallet-nomination-pools",
