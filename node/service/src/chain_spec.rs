@@ -274,6 +274,7 @@ fn kusama_session_keys(
 	para_validator: ValidatorId,
 	para_assignment: AssignmentId,
 	authority_discovery: AuthorityDiscoveryId,
+	beefy: BeefyId,
 ) -> kusama::SessionKeys {
 	kusama::SessionKeys {
 		babe,
@@ -282,6 +283,7 @@ fn kusama_session_keys(
 		para_validator,
 		para_assignment,
 		authority_discovery,
+		beefy,
 	}
 }
 
@@ -293,6 +295,7 @@ fn westend_session_keys(
 	para_validator: ValidatorId,
 	para_assignment: AssignmentId,
 	authority_discovery: AuthorityDiscoveryId,
+	beefy: BeefyId,
 ) -> westend::SessionKeys {
 	westend::SessionKeys {
 		babe,
@@ -301,6 +304,7 @@ fn westend_session_keys(
 		para_validator,
 		para_assignment,
 		authority_discovery,
+		beefy,
 	}
 }
 
@@ -335,6 +339,7 @@ fn westend_staging_testnet_config_genesis(wasm_binary: &[u8]) -> westend::Runtim
 		// 5DaVh5WRfazkGaKhx1jUu6hjz7EmRe4dtW6PKeVLim84KLe8
 		hex!["42f4a4b3e0a89c835ee696205caa90dd85c8ea1d7364b646328ee919a6b2fc1e"].into(),
 	];
+	// FIXME: command below doesn't work anymore
 	// SECRET='...' ./scripts/prepare-test-net.sh 4
 	let initial_authorities: Vec<(
 		AccountId,
@@ -345,6 +350,7 @@ fn westend_staging_testnet_config_genesis(wasm_binary: &[u8]) -> westend::Runtim
 		ValidatorId,
 		AssignmentId,
 		AuthorityDiscoveryId,
+		BeefyId,
 	)> = vec![
 		(
 			//5ERCqy118nnXDai8g4t3MjdX7ZC5PrQzQpe9vwex5cELWqbt
@@ -368,6 +374,10 @@ fn westend_staging_testnet_config_genesis(wasm_binary: &[u8]) -> westend::Runtim
 				.unchecked_into(),
 			//5GUMj8tnjL3PJZgXoiWtgLCaMVNHBNeSeTqDsvcxmaVAjKn9
 			hex!["c2fb0f74591a00555a292bc4882d3158bafc4c632124cb60681f164ef81bcf72"]
+				.unchecked_into(),
+			// FIXME: correctly generate BEEFY keys
+			//5DPSWdgw38Spu315r6LSvYCggeeieBAJtP5A1qzuzKhqmjVu
+			hex!["034f68c5661a41930c82f26a662276bf89f33467e1c850f2fb8ef687fe43d62276"]
 				.unchecked_into(),
 		),
 		(
@@ -393,6 +403,10 @@ fn westend_staging_testnet_config_genesis(wasm_binary: &[u8]) -> westend::Runtim
 			//5DwBJquZgncRWXFxj2ydbF8LBUPPUbiq86sXWXgm8Z38m8L2
 			hex!["52bae9b8dedb8058dda93ec6f57d7e5a517c4c9f002a4636fada70fed0acf376"]
 				.unchecked_into(),
+			// FIXME: correctly generate BEEFY keys
+			//5DPSWdgw38Spu315r6LSvYCggeeieBAJtP5A1qzuzKhqmjVu
+			hex!["034f68c5661a41930c82f26a662276bf89f33467e1c850f2fb8ef687fe43d62276"]
+				.unchecked_into(),
 		),
 		(
 			//5DMHpkRpQV7NWJFfn2zQxCLiAKv7R12PWFRPHKKk5X3JkYfP
@@ -416,6 +430,10 @@ fn westend_staging_testnet_config_genesis(wasm_binary: &[u8]) -> westend::Runtim
 				.unchecked_into(),
 			//5EsSaZZ7niJs7hmAtp4QeK19AcAuTp7WXB7N7gRipVooerq4
 			hex!["7c1d92535e6d94e21cffea6633a855a7e3c9684cd2f209e5ddbdeaf5111e395b"]
+				.unchecked_into(),
+			// FIXME: correctly generate BEEFY keys
+			//5EPoHj8uV4fFKQHYThc6Z9fDkU7B6ih2ncVzQuDdNFb8UyhF
+			hex!["039d065fe4f9234f0a4f13cc3ae585f2691e9c25afa469618abb6645111f607a53"]
 				.unchecked_into(),
 		),
 		(
@@ -441,6 +459,10 @@ fn westend_staging_testnet_config_genesis(wasm_binary: &[u8]) -> westend::Runtim
 			//5EFcjHLvB2z5vd5g63n4gABmhzP5iPsKvTwd8sjfvTehNNrk
 			hex!["60cae7fa5a079d9fc8061d715fbcc35ef57c3b00005694c2badce22dcc5a9f1b"]
 				.unchecked_into(),
+			// FIXME: correctly generate BEEFY keys
+			//5CPx6dsr11SCJHKFkcAQ9jpparS7FwXQBrrMznRo4Hqv1PXz
+			hex!["0307d29bbf6a5c4061c2157b44fda33b7bb4ec52a5a0305668c74688cedf288d58"]
+				.unchecked_into(),
 		),
 	];
 
@@ -456,6 +478,7 @@ fn westend_staging_testnet_config_genesis(wasm_binary: &[u8]) -> westend::Runtim
 				.chain(initial_authorities.iter().map(|x| (x.0.clone(), STASH)))
 				.collect(),
 		},
+		beefy: Default::default(),
 		indices: westend::IndicesConfig { indices: vec![] },
 		session: westend::SessionConfig {
 			keys: initial_authorities
@@ -471,6 +494,7 @@ fn westend_staging_testnet_config_genesis(wasm_binary: &[u8]) -> westend::Runtim
 							x.5.clone(),
 							x.6.clone(),
 							x.7.clone(),
+							x.8.clone(),
 						),
 					)
 				})
@@ -542,6 +566,7 @@ fn kusama_staging_testnet_config_genesis(wasm_binary: &[u8]) -> kusama::RuntimeG
 		ValidatorId,
 		AssignmentId,
 		AuthorityDiscoveryId,
+		BeefyId,
 	)> = vec![
 		(
 			// 5DD7Q4VEfPTLEdn11CnThoHT5f9xKCrnofWJL5SsvpTghaAT
@@ -565,6 +590,10 @@ fn kusama_staging_testnet_config_genesis(wasm_binary: &[u8]) -> kusama::RuntimeG
 				.unchecked_into(),
 			// 5FpewyS2VY8Cj3tKgSckq8ECkjd1HKHvBRnWhiHqRQsWfFC1
 			hex!["a639b507ee1585e0b6498ff141d6153960794523226866d1b44eba3f25f36356"]
+				.unchecked_into(),
+			// FIXME: correctly generate BEEFY keys
+			//5DPSWdgw38Spu315r6LSvYCggeeieBAJtP5A1qzuzKhqmjVu
+			hex!["034f68c5661a41930c82f26a662276bf89f33467e1c850f2fb8ef687fe43d62276"]
 				.unchecked_into(),
 		),
 		(
@@ -590,6 +619,10 @@ fn kusama_staging_testnet_config_genesis(wasm_binary: &[u8]) -> kusama::RuntimeG
 			// 5GvuM53k1Z4nAB5zXJFgkRSHv4Bqo4BsvgbQWNWkiWZTMwWY
 			hex!["765e46067adac4d1fe6c783aa2070dfa64a19f84376659e12705d1734b3eae01"]
 				.unchecked_into(),
+			// FIXME: correctly generate BEEFY keys
+			//5DPSWdgw38Spu315r6LSvYCggeeieBAJtP5A1qzuzKhqmjVu
+			hex!["034f68c5661a41930c82f26a662276bf89f33467e1c850f2fb8ef687fe43d62276"]
+				.unchecked_into(),
 		),
 		(
 			// 5FzwpgGvk2kk9agow6KsywLYcPzjYc8suKej2bne5G5b9YU3
@@ -613,6 +646,10 @@ fn kusama_staging_testnet_config_genesis(wasm_binary: &[u8]) -> kusama::RuntimeG
 				.unchecked_into(),
 			// 5CXNq1mSKJT4Sc2CbyBBdANeSkbUvdWvE4czJjKXfBHi9sX5
 			hex!["664eae1ca4713dd6abf8c15e6c041820cda3c60df97dc476c2cbf7cb82cb2d2e"]
+				.unchecked_into(),
+			// FIXME: correctly generate BEEFY keys
+			//5EPoHj8uV4fFKQHYThc6Z9fDkU7B6ih2ncVzQuDdNFb8UyhF
+			hex!["039d065fe4f9234f0a4f13cc3ae585f2691e9c25afa469618abb6645111f607a53"]
 				.unchecked_into(),
 		),
 		(
@@ -638,6 +675,10 @@ fn kusama_staging_testnet_config_genesis(wasm_binary: &[u8]) -> kusama::RuntimeG
 			// 5FCd9Y7RLNyxz5wnCAErfsLbXGG34L2BaZRHzhiJcMUMd5zd
 			hex!["2adb17a5cafbddc7c3e00ec45b6951a8b12ce2264235b4def342513a767e5d3d"]
 				.unchecked_into(),
+			// FIXME: correctly generate BEEFY keys
+			//5CPx6dsr11SCJHKFkcAQ9jpparS7FwXQBrrMznRo4Hqv1PXz
+			hex!["0307d29bbf6a5c4061c2157b44fda33b7bb4ec52a5a0305668c74688cedf288d58"]
+				.unchecked_into(),
 		),
 	];
 
@@ -653,6 +694,7 @@ fn kusama_staging_testnet_config_genesis(wasm_binary: &[u8]) -> kusama::RuntimeG
 				.chain(initial_authorities.iter().map(|x| (x.0.clone(), STASH)))
 				.collect(),
 		},
+		beefy: Default::default(),
 		indices: kusama::IndicesConfig { indices: vec![] },
 		session: kusama::SessionConfig {
 			keys: initial_authorities
@@ -668,6 +710,7 @@ fn kusama_staging_testnet_config_genesis(wasm_binary: &[u8]) -> kusama::RuntimeG
 							x.5.clone(),
 							x.6.clone(),
 							x.7.clone(),
+							x.8.clone(),
 						),
 					)
 				})
@@ -1321,6 +1364,7 @@ pub fn kusama_testnet_genesis(
 		ValidatorId,
 		AssignmentId,
 		AuthorityDiscoveryId,
+		BeefyId,
 	)>,
 	_root_key: AccountId,
 	endowed_accounts: Option<Vec<AccountId>>,
@@ -1336,6 +1380,7 @@ pub fn kusama_testnet_genesis(
 		balances: kusama::BalancesConfig {
 			balances: endowed_accounts.iter().map(|k| (k.clone(), ENDOWMENT)).collect(),
 		},
+		beefy: Default::default(),
 		session: kusama::SessionConfig {
 			keys: initial_authorities
 				.iter()
@@ -1350,6 +1395,7 @@ pub fn kusama_testnet_genesis(
 							x.5.clone(),
 							x.6.clone(),
 							x.7.clone(),
+							x.8.clone(),
 						),
 					)
 				})
@@ -1405,6 +1451,7 @@ pub fn westend_testnet_genesis(
 		ValidatorId,
 		AssignmentId,
 		AuthorityDiscoveryId,
+		BeefyId,
 	)>,
 	root_key: AccountId,
 	endowed_accounts: Option<Vec<AccountId>>,
@@ -1420,6 +1467,7 @@ pub fn westend_testnet_genesis(
 		balances: westend::BalancesConfig {
 			balances: endowed_accounts.iter().map(|k| (k.clone(), ENDOWMENT)).collect(),
 		},
+		beefy: Default::default(),
 		session: westend::SessionConfig {
 			keys: initial_authorities
 				.iter()
@@ -1434,6 +1482,7 @@ pub fn westend_testnet_genesis(
 							x.5.clone(),
 							x.6.clone(),
 							x.7.clone(),
+							x.8.clone(),
 						),
 					)
 				})
@@ -1583,7 +1632,7 @@ fn polkadot_development_config_genesis(wasm_binary: &[u8]) -> polkadot::RuntimeG
 fn kusama_development_config_genesis(wasm_binary: &[u8]) -> kusama::RuntimeGenesisConfig {
 	kusama_testnet_genesis(
 		wasm_binary,
-		vec![get_authority_keys_from_seed_no_beefy("Alice")],
+		vec![get_authority_keys_from_seed("Alice")],
 		get_account_id_from_seed::<sr25519::Public>("Alice"),
 		None,
 	)
@@ -1593,7 +1642,7 @@ fn kusama_development_config_genesis(wasm_binary: &[u8]) -> kusama::RuntimeGenes
 fn westend_development_config_genesis(wasm_binary: &[u8]) -> westend::RuntimeGenesisConfig {
 	westend_testnet_genesis(
 		wasm_binary,
-		vec![get_authority_keys_from_seed_no_beefy("Alice")],
+		vec![get_authority_keys_from_seed("Alice")],
 		get_account_id_from_seed::<sr25519::Public>("Alice"),
 		None,
 	)
@@ -1772,10 +1821,7 @@ pub fn polkadot_local_testnet_config() -> Result<PolkadotChainSpec, String> {
 fn kusama_local_testnet_genesis(wasm_binary: &[u8]) -> kusama::RuntimeGenesisConfig {
 	kusama_testnet_genesis(
 		wasm_binary,
-		vec![
-			get_authority_keys_from_seed_no_beefy("Alice"),
-			get_authority_keys_from_seed_no_beefy("Bob"),
-		],
+		vec![get_authority_keys_from_seed("Alice"), get_authority_keys_from_seed("Bob")],
 		get_account_id_from_seed::<sr25519::Public>("Alice"),
 		None,
 	)
@@ -1804,10 +1850,7 @@ pub fn kusama_local_testnet_config() -> Result<KusamaChainSpec, String> {
 fn westend_local_testnet_genesis(wasm_binary: &[u8]) -> westend::RuntimeGenesisConfig {
 	westend_testnet_genesis(
 		wasm_binary,
-		vec![
-			get_authority_keys_from_seed_no_beefy("Alice"),
-			get_authority_keys_from_seed_no_beefy("Bob"),
-		],
+		vec![get_authority_keys_from_seed("Alice"), get_authority_keys_from_seed("Bob")],
 		get_account_id_from_seed::<sr25519::Public>("Alice"),
 		None,
 	)
