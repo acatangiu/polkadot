@@ -4255,6 +4255,7 @@ dependencies = [
 name = "kusama-runtime"
 version = "0.9.43"
 dependencies = [
+ "binary-merkle-tree",
  "bitvec",
  "frame-benchmarking",
  "frame-election-provider-support",
@@ -4273,6 +4274,8 @@ dependencies = [
  "pallet-babe",
  "pallet-bags-list",
  "pallet-balances",
+ "pallet-beefy",
+ "pallet-beefy-mmr",
  "pallet-bounties",
  "pallet-child-bounties",
  "pallet-collective",
@@ -4288,6 +4291,7 @@ dependencies = [
  "pallet-indices",
  "pallet-membership",
  "pallet-message-queue",
+ "pallet-mmr",
  "pallet-multisig",
  "pallet-nis",
  "pallet-nomination-pools",
@@ -4329,6 +4333,7 @@ dependencies = [
  "serde_json",
  "smallvec",
  "sp-api",
+ "sp-application-crypto",
  "sp-arithmetic",
  "sp-authority-discovery",
  "sp-block-builder",
@@ -14633,6 +14638,7 @@ dependencies = [
 name = "westend-runtime"
 version = "0.9.43"
 dependencies = [
+ "binary-merkle-tree",
  "bitvec",
  "frame-benchmarking",
  "frame-election-provider-support",
@@ -14650,6 +14656,8 @@ dependencies = [
  "pallet-babe",
  "pallet-bags-list",
  "pallet-balances",
+ "pallet-beefy",
+ "pallet-beefy-mmr",
  "pallet-collective",
  "pallet-democracy",
  "pallet-election-provider-multi-phase",
@@ -14662,6 +14670,7 @@ dependencies = [
  "pallet-indices",
  "pallet-membership",
  "pallet-message-queue",
+ "pallet-mmr",
  "pallet-multisig",
  "pallet-nomination-pools",
  "pallet-nomination-pools-benchmarking",
@@ -14700,6 +14709,7 @@ dependencies = [
  "serde_json",
  "smallvec",
  "sp-api",
+ "sp-application-crypto",
  "sp-authority-discovery",
  "sp-block-builder",
  "sp-consensus-babe",
